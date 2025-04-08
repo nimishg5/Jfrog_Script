@@ -4,7 +4,7 @@
       x -> x.legType = 'Near' 
       AND exists(x.notionalAmount, n -> 
         exists(x.underlying, u -> 
-          exists(u.fxCurrencyPair, f -> n.currency = f.currency1)
+          exists(u.fxCurrencyPair, f -> array_contains(f.currency1, n.currency))
         )
       )
     ) 
@@ -13,7 +13,7 @@
         x -> x.legType = 'Near' 
         AND exists(x.notionalAmount, n -> 
           exists(x.underlying, u -> 
-            exists(u.fxCurrencyPair, f -> n.currency = f.currency1)
+            exists(u.fxCurrencyPair, f -> array_contains(f.currency1, n.currency))
           )
         )
       ), 
@@ -24,7 +24,7 @@
       x -> x.legType = 'Near' 
       AND exists(x.notionalAmount, n -> 
         exists(x.underlying, u -> 
-          exists(u.fxCurrencyPair, f -> n.currency = f.currency2)
+          exists(u.fxCurrencyPair, f -> array_contains(f.currency2, n.currency))
         )
       )
     ) 
@@ -33,7 +33,7 @@
         x -> x.legType = 'Near' 
         AND exists(x.notionalAmount, n -> 
           exists(x.underlying, u -> 
-            exists(u.fxCurrencyPair, f -> n.currency = f.currency2)
+            exists(u.fxCurrencyPair, f -> array_contains(f.currency2, n.currency))
           )
         )
       ), 
