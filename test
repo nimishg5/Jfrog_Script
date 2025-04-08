@@ -2,24 +2,40 @@
   CASE 
     WHEN exists(product.productStream, 
       x -> x.legType = 'Near' 
-      AND exists(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency1)
+      AND exists(x.notionalAmount, n -> 
+        exists(x.underlying, u -> 
+          exists(u.fxCurrencyPair, f -> n.currency = f.currency1)
+        )
+      )
     ) 
     THEN element_at(
       filter(product.productStream, 
         x -> x.legType = 'Near' 
-        AND exists(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency1)
+        AND exists(x.notionalAmount, n -> 
+          exists(x.underlying, u -> 
+            exists(u.fxCurrencyPair, f -> n.currency = f.currency1)
+          )
+        )
       ), 
       1
     ).notionalAmount.APartyPayerReceiver
 
     WHEN exists(product.productStream, 
       x -> x.legType = 'Near' 
-      AND exists(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency2)
+      AND exists(x.notionalAmount, n -> 
+        exists(x.underlying, u -> 
+          exists(u.fxCurrencyPair, f -> n.currency = f.currency2)
+        )
+      )
     ) 
     THEN element_at(
       filter(product.productStream, 
         x -> x.legType = 'Near' 
-        AND exists(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency2)
+        AND exists(x.notionalAmount, n -> 
+          exists(x.underlying, u -> 
+            exists(u.fxCurrencyPair, f -> n.currency = f.currency2)
+          )
+        )
       ), 
       1
     ).notionalAmount.APartyPayerReceiver
