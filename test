@@ -1,20 +1,16 @@
-"map_function": "CASE WHEN datamodel_trade.reference = 'TRADE_ON_OTC_V2' THEN 
+ "map_function": "CASE WHEN datamodel_trade.reference = 'TRADE_ON_OTC_V2' THEN 
   CASE 
     WHEN exists(product.productStream, 
       x -> x.legType = 'Near' 
       AND exists(x.notionalAmount, n -> 
-        exists(x.underlying, u -> 
-          exists(u.fxCurrencyPair, f -> array_contains(f.currency1, n.currency))
-        )
+        exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency1)
       )
     ) 
     THEN element_at(
       filter(product.productStream, 
         x -> x.legType = 'Near' 
         AND exists(x.notionalAmount, n -> 
-          exists(x.underlying, u -> 
-            exists(u.fxCurrencyPair, f -> array_contains(f.currency1, n.currency))
-          )
+          exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency1)
         )
       ), 
       1
@@ -23,18 +19,14 @@
     WHEN exists(product.productStream, 
       x -> x.legType = 'Near' 
       AND exists(x.notionalAmount, n -> 
-        exists(x.underlying, u -> 
-          exists(u.fxCurrencyPair, f -> array_contains(f.currency2, n.currency))
-        )
+        exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency2)
       )
     ) 
     THEN element_at(
       filter(product.productStream, 
         x -> x.legType = 'Near' 
         AND exists(x.notionalAmount, n -> 
-          exists(x.underlying, u -> 
-            exists(u.fxCurrencyPair, f -> array_contains(f.currency2, n.currency))
-          )
+          exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency2)
         )
       ), 
       1
