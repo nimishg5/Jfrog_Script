@@ -1,12 +1,31 @@
 "map_function": "CASE WHEN datamodel_trade.reference = 'TRADE_ON_OTC_V2' THEN 
-element_at(
-  filter(product.productStream, 
-    x -> x.legType in ('Option','Forward','Spot') 
-    and exists(x.notionalAmount, n -> n.amountType = 'Current') 
-    and exists(x.underlying, u -> 
-      exists(x.notionalAmount, n -> n.currency = u.fxCurrencyPair.currency1)
-    )
-  ), 
-1
-).notionalAmount.amount 
+  CASE 
+    WHEN EXISTS(
+      x -> x.legType = 'Near' 
+      AND EXISTS(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency1), 
+      product.productStream
+    ) 
+    THEN element_at(
+      filter(product.productStream, 
+        x -> x.legType = 'Near' 
+        AND EXISTS(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency1)
+      ), 
+      1
+    ).notionalAmount.APartyPayerReceiver
+
+    WHEN EXISTS(
+      x -> x.legType = 'Near' 
+      AND EXISTS(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency2), 
+      product.productStream
+    ) 
+    THEN element_at(
+      filter(product.productStream, 
+        x -> x.legType = 'Near' 
+        AND EXISTS(x.notionalAmount, n -> n.currency = x.underlying.fxCurrencyPair.currency2)
+      ), 
+      1
+    ).notionalAmount.APartyPayerReceiver
+
+    ELSE NULL
+  END 
 END"
