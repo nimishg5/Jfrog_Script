@@ -1,0 +1,10 @@
+"map_function": "CASE WHEN datamodel_trade.reference = 'TRADE_ON_OTC_V2' THEN 
+element_at(
+  filter(product.productStream, 
+    x -> x.legType in ('Option','Forward','Spot') 
+    and EXISTS(n -> n.amountType = 'Current' AND 
+      EXISTS(u -> n.currency = u.fxCurrencyPair.currency1, x.underlying), x.notionalAmount)
+  ), 
+1
+).notionalAmount.amount 
+END"
