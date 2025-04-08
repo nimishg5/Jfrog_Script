@@ -2,8 +2,10 @@
 element_at(
   filter(product.productStream, 
     x -> x.legType in ('Option','Forward','Spot') 
-    and EXISTS(n -> n.amountType = 'Current' AND 
-      EXISTS(u -> n.currency = u.fxCurrencyPair.currency1, x.underlying), x.notionalAmount)
+    and exists(x.notionalAmount, n -> n.amountType = 'Current') 
+    and exists(x.underlying, u -> 
+      exists(x.notionalAmount, n -> n.currency = u.fxCurrencyPair.currency1)
+    )
   ), 
 1
 ).notionalAmount.amount 
