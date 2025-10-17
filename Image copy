@@ -1,0 +1,16 @@
+# Copy Node.js and npm from the Node image into your image
+COPY --from=nodejs /usr/local/bin/node /usr/local/bin/node
+COPY --from=nodejs /usr/local/bin/npm /usr/local/bin/npm
+COPY --from=nodejs /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+# Also copy npx if needed
+COPY --from=nodejs /usr/local/bin/npx /usr/local/bin/npx
+
+# Optional: Set working directory
+WORKDIR /usr/local/app
+
+# Optional: expose ports
+EXPOSE 8080 3000
+
+# Default command (Tomcat)
+CMD ["catalina.sh", "run"]
