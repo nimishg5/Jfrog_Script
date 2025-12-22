@@ -1,37 +1,38 @@
- "map_function": "CASE WHEN datamodel_trade.reference = 'TRADE_ON_OTC_V2' THEN 
-  CASE 
-    WHEN exists(product.productStream, 
-      x -> x.legType = 'Near' 
-      AND exists(x.notionalAmount, n -> 
-        exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency1)
-      )
-    ) 
-    THEN element_at(
-      filter(product.productStream, 
-        x -> x.legType = 'Near' 
-        AND exists(x.notionalAmount, n -> 
-          exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency1)
-        )
-      ), 
-      1
-    ).notionalAmount.APartyPayerReceiver
 
-    WHEN exists(product.productStream, 
-      x -> x.legType = 'Near' 
-      AND exists(x.notionalAmount, n -> 
-        exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency2)
-      )
-    ) 
-    THEN element_at(
-      filter(product.productStream, 
-        x -> x.legType = 'Near' 
-        AND exists(x.notionalAmount, n -> 
-          exists(x.underlying, u -> n.currency = u.fxCurrencyPair.currency2)
-        )
-      ), 
-      1
-    ).notionalAmount.APartyPayerReceiver
+Dear Team Medi Assist,
 
-    ELSE NULL
-  END 
-END"
+This is in reference to your response dated 22 December 2025.
+
+Frankly, I am disappointed to note that your reply does not address any of the specific clarifications raised in my earlier email and instead merely repeats the same generic statement again, without responding to the points already explained in detail.
+
+To reiterate clearly:
+	1.	I am not claiming “standalone oocyte retrieval”
+Your response again states that “standalone oocyte retrieval is not admissible.”
+This was never my claim, nor was it presented as such in my mail or in the submitted documents.
+	2.	My mail explicitly questioned the policy basis
+I had clearly asked you to:
+	•	Point out the exact clause in the policy document that mandates embryo transfer as a compulsory prerequisite for claim admissibility.
+	•	Explain why the same IVF process was approved earlier under OPD, while now being rejected under IPD for the identical medical procedure.
+Unfortunately, your reply does not reference any policy clause, section number, or wording to justify this interpretation.
+	3.	IVF is a multi-stage treatment, not a single procedure
+As already mentioned, IVF consists of multiple stages (stimulation, retrieval, fertilization, culture, transfer).
+The policy provides coverage for infertility treatment up to the insured amount.
+Nowhere does the policy explicitly state that reimbursement is conditional upon completion of embryo transfer.
+	4.	Repetition without clarification is unacceptable
+Simply repeating that “claim can be processed post embryo transfer” without addressing the above points does not resolve the inconsistency or answer my query.
+It gives the impression that my mail has not been read or understood.
+
+⸻
+
+I therefore request the following, clearly and specifically:
+	1.	Written confirmation of the exact policy clause (with clause number and wording) that mandates embryo transfer as compulsory for IVF claim admissibility.
+	2.	An explanation for the contradiction between the earlier approved claim and the current rejection, despite the same treatment and coverage.
+	3.	Clarification on whether claims are being assessed based on documented policy terms or internal interpretations not stated in the policy.
+
+Until these points are addressed with policy-backed justification, the response remains incomplete and unsatisfactory.
+
+I expect a clear, clause-based reply rather than a repetition of the same generic statement.
+
+Regards,
+Nimish Gupta
+Policyholder
